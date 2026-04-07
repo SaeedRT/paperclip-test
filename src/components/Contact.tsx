@@ -6,7 +6,7 @@ import { createBooking, initialBookingActionState } from '@/app/actions/bookings
 export default function Contact() {
   const [formState, formAction, isPending] = useActionState(
     createBooking,
-    initialBookingActionState,
+    initialBookingActionState
   );
 
   return (

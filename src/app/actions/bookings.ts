@@ -15,7 +15,7 @@ export const initialBookingActionState: BookingActionState = {
 
 export async function createBooking(
   _prevState: BookingActionState,
-  formData: FormData,
+  formData: FormData
 ): Promise<BookingActionState> {
   const name = String(formData.get('name') ?? '').trim();
   const email = String(formData.get('email') ?? '').trim();
