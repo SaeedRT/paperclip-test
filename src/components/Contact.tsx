@@ -1,3 +1,5 @@
+'use client';
+
 export default function Contact() {
   return (
     <section id="contact" className="bg-stone-50 py-24">
