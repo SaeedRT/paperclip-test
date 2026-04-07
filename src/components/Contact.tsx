@@ -1,6 +1,14 @@
 'use client';
 
+import { useActionState } from 'react';
+import { createBooking, initialBookingActionState } from '@/app/actions/bookings';
+
 export default function Contact() {
+  const [formState, formAction, isPending] = useActionState(
+    createBooking,
+    initialBookingActionState,
+  );
+
   return (
     <section id="contact" className="py-24">
       <div className="mx-auto max-w-6xl px-6">
@@ -36,38 +44,22 @@ export default function Contact() {
 
           <div className="rounded-3xl border border-[#183d3f]/12 bg-[#fffaf0]/92 p-8 shadow-[0_20px_55px_-35px_rgba(23,42,46,0.7)] backdrop-blur-sm">
             <h3 className="mb-6 text-4xl font-semibold text-[#1d2a2e]">Reserve a Table</h3>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="firstName"
-                    className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
-                  >
-                    First Name
-                  </label>
-                  <input
-                    id="firstName"
-                    type="text"
-                    required
-                    className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
-                    placeholder="Hiroshi"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="lastName"
-                    className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    id="lastName"
-                    type="text"
-                    required
-                    className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
-                    placeholder="Tanaka"
-                  />
-                </div>
+            <form className="space-y-4" action={formAction}>
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
+                >
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
+                  placeholder="Hiroshi Tanaka"
+                />
               </div>
               <div>
                 <label
@@ -78,6 +70,7 @@ export default function Contact() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   required
                   className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
@@ -87,46 +80,86 @@ export default function Contact() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label
-                    htmlFor="date"
+                    htmlFor="phone"
                     className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
                   >
-                    Date
+                    Phone
                   </label>
                   <input
-                    id="date"
-                    type="date"
+                    id="phone"
+                    name="phone"
+                    type="tel"
                     required
                     className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
+                    placeholder="(415) 555-0123"
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="guests"
+                    htmlFor="partySize"
                     className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
                   >
                     Guests
                   </label>
                   <select
-                    id="guests"
+                    id="partySize"
+                    name="partySize"
+                    required
                     className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
                   >
-                    {[1, 2, 3, 4, 5, 6].map((n) => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
                       <option key={n} value={n}>
                         {n} {n === 1 ? 'guest' : 'guests'}
                       </option>
                     ))}
-                    <option value="7+">7+ guests</option>
+                    <option value="10">10+ guests</option>
                   </select>
                 </div>
               </div>
+              <div>
+                <label
+                  htmlFor="reservationAt"
+                  className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
+                >
+                  Date & Time
+                </label>
+                <input
+                  id="reservationAt"
+                  name="reservationAt"
+                  type="datetime-local"
+                  required
+                  className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="specialRequests"
+                  className="mb-1 block text-xs font-medium tracking-[0.14em] text-[#3d5055] uppercase"
+                >
+                  Special Requests
+                </label>
+                <textarea
+                  id="specialRequests"
+                  name="specialRequests"
+                  rows={3}
+                  className="w-full rounded-xl border border-[#183d3f]/20 bg-white/90 px-4 py-2.5 text-sm text-[#1d2a2e] focus:border-[#b07a2f] focus:ring-1 focus:ring-[#b07a2f] focus:outline-none"
+                  placeholder="Dietary restrictions, accessibility needs, or seating preference"
+                />
+              </div>
               <button
                 type="submit"
+                disabled={isPending}
                 className="w-full rounded-full bg-[#183d3f] py-3 text-sm font-semibold tracking-[0.16em] text-amber-50 uppercase hover:-translate-y-0.5 hover:bg-[#1e4c4e]"
               >
-                Request Reservation
+                {isPending ? 'Sending Request...' : 'Request Reservation'}
               </button>
-              <p className="text-center text-xs tracking-wide text-[#56686c]">
-                We will confirm your booking by email within 2 hours.
+              <p
+                className={`text-center text-xs tracking-wide ${
+                  formState.status === 'error' ? 'text-red-700' : 'text-[#56686c]'
+                }`}
+                aria-live="polite"
+              >
+                {formState.message || 'We will confirm your booking by email within 2 hours.'}
               </p>
             </form>
           </div>
