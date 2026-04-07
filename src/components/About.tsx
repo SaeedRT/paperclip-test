@@ -47,7 +47,9 @@ export default function About() {
                 style={{ animationDelay: `${index * 80}ms` }}
               >
                 <p className="mb-1 text-5xl font-semibold text-[#f7e0ad]">{stat.value}</p>
-                <p className="text-xs tracking-[0.14em] text-[#f4ecdb]/75 uppercase">{stat.label}</p>
+                <p className="text-xs tracking-[0.14em] text-[#f4ecdb]/75 uppercase">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>

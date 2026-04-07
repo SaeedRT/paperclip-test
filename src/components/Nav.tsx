@@ -5,7 +5,7 @@ export default function Nav() {
         <a href="#" className="text-2xl leading-none font-semibold tracking-tight text-amber-100">
           Sakura Sushi
         </a>
-        <nav className="hidden gap-7 text-xs tracking-[0.16em] uppercase text-amber-50/85 sm:flex">
+        <nav className="hidden gap-7 text-xs tracking-[0.16em] text-amber-50/85 uppercase sm:flex">
           <a href="#menu" className="hover:text-amber-300">
             Menu
           </a>
